@@ -19,8 +19,7 @@ VERSION_NUMBER :: VERSION_MAJOR * 1000000 +
     VERSION_PATCH
 
 // Opaque struct pointers
-VM :: distinct rawptr
-Handle :: distinct rawptr
+Handle :: struct {}
 
 // Enums
 ErrorType :: enum {
@@ -47,6 +46,20 @@ Type :: enum {
 }
 
 // Structs
+VM :: struct {
+    reallocateFn: ReallocateFn,
+    resolveModuleFn: ResolveModuleFn,
+    loadModuleFn: LoadModuleFn,
+    bindForeignMethodFn: BindForeignMethodFn,
+    bindForeignClassFn: BindForeignClassFn,
+    writeFn: WriteFn,
+    errorFn: ErrorFn,
+    initialHeapSize: u64,
+    minHeapSize: u64,
+    heapGrowthPercent: i32,
+    userData: rawptr,
+}
+
 LoadModuleResult :: struct {
     source: cstring,
     onComplete: LoadModuleCompleteFn,
